@@ -11,6 +11,7 @@ gem 'mysql2'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 
+# Dev and test gems
 group :development, :test do
   gem 'rspec-rails', '2.11.0'
   gem 'guard-rspec', '1.2.1'
@@ -26,6 +27,7 @@ group :assets do
   gem 'uglifier', '1.2.3'
 end
 
+#only test gems
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '4.1.0'

@@ -40,3 +40,5 @@ production:
   username: nir
   password: nir
   host: localhost
+
+# these the dbs via mysql
