@@ -6,7 +6,6 @@ feature "HomePages" do
 
   scenario do
 
-    #visit '/home_page/home'
     expect(page).to have_content("Home")
 
   end
