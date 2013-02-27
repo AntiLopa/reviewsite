@@ -1,9 +1,8 @@
 Reviewsite::Application.routes.draw do
+
   root :to => 'static_pages#home'
 
   match '/about', to: 'static_pages#about'
-
-  # root :to => 'home_page#home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -2,29 +2,17 @@
 <html>
 <head>
   <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
 <body>
-  <header>
-    <div>
-      <span class="site-title">snfer</span>
-      <div>
-        <input type="email" class="input" placeholder="email" />
-        <input type="password" class="input" placeholder="password" />
-        <a href="#"><i>#</i>Sing-in/up</a>
-      </div>
-    </div>
-  </header>
-
-  <%= yield %>
-
-  <footer>
-    <div>
-      <div>Wrote by Nir Ben Ezri</div>
-      <div><a href="#">about</a></div>
-    </div>
-  </footer>
+  <%=  render 'layouts/header' %>
+  <div class="container">
+    <%= yield %>
+    <%=  render 'layouts/footer' %>
+  </div>
 </body>
 </html>
