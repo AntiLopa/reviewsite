@@ -1,5 +1,8 @@
 Reviewsite::Application.routes.draw do
-   get "home_page/home"
+  root :to => 'static_pages#home'
+
+  match '/about', to: 'static_pages#about'
+
   # root :to => 'home_page#home'
 
   # The priority is based upon order of creation:
