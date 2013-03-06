@@ -5,10 +5,8 @@ feature 'Home page' do
 
   before { visit root_path}
 
-  scenario {should have_selector('h1', text: 'Search Something')}
+  scenario {should have_selector('h1',    text: 'Search Something')}
   scenario {should have_selector('title', text: full_title(''))}
-
-
 end
 
 feature 'About page' do
@@ -16,9 +14,8 @@ feature 'About page' do
 
   before { visit about_path}
 
-  scenario {should have_selector('h1', text: 'About')}
+  scenario {should have_selector('h1',    text: 'About')}
   scenario {should have_selector('title', text: full_title('About'))}
-
 end
 
 feature 'Check links' do
