@@ -10,4 +10,12 @@ module ApplicationHelper
       "#{base_title} | #{title}"
     end
   end
+
+  def user_name_or_email(user)
+    if user.name
+      user.name
+    else
+      user.email
+    end
+  end
 end

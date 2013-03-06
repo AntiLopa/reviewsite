@@ -14,6 +14,7 @@ describe 'User' do
   it {should respond_to(:password_confirmation)}
   it {should respond_to(:authenticate)}
   it {should respond_to(:priv)}
+  it {should respond_to(:remember_token)}
 
   it{should be_valid}
 
@@ -95,11 +96,6 @@ describe 'User' do
     it{should_not be_valid}
   end
 
-  describe 'when password confirmation is nil' do
-    before{@user.password_confirmation = nil}
-    it{should_not be_valid}
-  end
-
   describe 'when password too short' do
     before {@user.password = @user.password_confirmation = 'aaaaa'}
     it{ should_not be_valid}
@@ -118,5 +114,10 @@ describe 'User' do
       it {should_not ==invalid_password_user}
       specify {invalid_password_user.should be_false}
     end
+  end
+
+  describe "remember token" do
+    before {@user.save}
+    its(:remember_token) {should_not be_blank}
   end
 end

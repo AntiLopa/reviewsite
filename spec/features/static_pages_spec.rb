@@ -33,6 +33,16 @@ feature 'Check links' do
     should have_selector('title', text: full_title(''))
   end
 
+  scenario do
+    click_link 'Sign up'
+    should have_selector('title', text: "Sign up")
+  end
+
+  scenario do
+    click_link 'Sign in'
+    should have_selector('title', text: "Sign in")
+  end
+
   #scenario do
   #  click_link 'Cameras'
   #  should have_selector('title', text: full_title('Cameras'))

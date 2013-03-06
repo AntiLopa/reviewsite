@@ -1,9 +1,14 @@
 Reviewsite::Application.routes.draw do
   resources :users
+  resource :sessions, only: [:new, :create, :destroy]
 
-  root :to => 'static_pages#home'
+  root to: 'static_pages#home'
 
-  match '/signup', to: 'users#new'
+  match '/signinup', to: 'application#signinup'
+
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/about', to: 'static_pages#about'
 

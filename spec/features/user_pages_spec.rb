@@ -5,8 +5,8 @@ feature 'Sign-up page' do
 
   before { visit signup_path}
 
-  scenario {should have_selector('h1',    text: 'Sign-up')}
-  scenario {should have_selector('title', text: full_title('Sign-up'))}
+  scenario {should have_selector('h1',    text: 'Sign up')}
+  scenario {should have_selector('title', text: full_title('Sign up'))}
 end
 
 feature 'Show page' do
@@ -31,7 +31,7 @@ feature "sign-up" do
 
       subject { page.html }
 
-      scenario {should have_selector('h1',    text: 'Sign-up')}
+      scenario {should have_selector('h1',    text: 'Sign up')}
       scenario {should have_content('error')}
     end
   end
@@ -55,6 +55,7 @@ feature "sign-up" do
 
       scenario {should have_selector('title', text: full_title(user.name))}
       scenario {should have_selector('div.alert.alert-success')}
+      scenario {should have_link('Sign out')}
     end
   end
 end
