@@ -4,6 +4,7 @@
   <aside class="span4">
     <section>
       <h1><%= user_name_or_email(@user) %></h1>
+      <small>[<%= link_to "edit", edit_user_path(@user) %>]</small>
     </section>
   </aside>
 </div>

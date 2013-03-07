@@ -3,8 +3,7 @@ require 'spec_helper'
 describe 'User' do
 
   before {@user = User.new(name: 'Nir', email: 'nir@example.com',
-                          password: 'foobar', password_confirmation: 'foobar',
-                          priv: 'admin')}
+                          password: 'foobar', password_confirmation: 'foobar')}
   subject {@user}
 
   it {should respond_to(:name)}
@@ -12,11 +11,20 @@ describe 'User' do
   it {should respond_to(:password_digest)}
   it {should respond_to(:password)}
   it {should respond_to(:password_confirmation)}
+  it {should respond_to(:admin)}
   it {should respond_to(:authenticate)}
-  it {should respond_to(:priv)}
   it {should respond_to(:remember_token)}
 
   it{should be_valid}
+  it{should_not be_admin}
+
+  describe "accessible attributes" do
+    it "should not have allow access to admin" do
+      expect do
+        User.new(admin: "1")
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+  end
 
   describe 'when name is empty' do
     before {@user.name=''}
@@ -61,26 +69,6 @@ describe 'User' do
       addresses = %w[b.com a1@bb,il a+b@a+sd.cv.or]
       addresses.each do |address|
         @user.email=address
-        should_not be_valid
-      end
-    end
-  end
-
-  describe 'when priv is valid' do
-    it 'should be valid' do
-      privs = %w[admin simple]
-      privs.each do |priv|
-        @user.priv=priv
-        should be_valid
-      end
-    end
-  end
-
-  describe 'when priv is not valid' do
-    it 'should not be valid' do
-      privs = %w[boss master]
-      privs.each do |priv|
-        @user.priv=priv
         should_not be_valid
       end
     end
