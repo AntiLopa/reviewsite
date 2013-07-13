@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "index page" do
-  subject {page.html}
+  subject {page}
 
   let(:user) { FactoryGirl.create(:user)}
 
@@ -9,11 +9,12 @@ feature "index page" do
   after(:all)  { User.delete_all }
 
   before do
-    sign_in user
+    sign_in_utl user
     visit users_path
   end
 
-  scenario {should have_selector('title', text: 'All users')}
+  scenario {should have_title('All users')}
+  #scenario {should have_selector('title', text: 'All users')}
   scenario {should have_selector('h1',    text: 'All users')}
 
   describe "pagination" do
@@ -33,7 +34,7 @@ feature "index page" do
       let(:admin){ FactoryGirl.create(:admin)}
 
       before do
-        sign_in admin
+        sign_in_utl admin
         visit users_path
       end
 
@@ -45,22 +46,25 @@ feature "index page" do
     end
   end
 end
+
 feature 'Sign-up page' do
-  subject {page.html}
+  subject {page}
 
   before { visit signup_path}
 
   scenario {should have_selector('h1',    text: 'Sign up')}
-  scenario {should have_selector('title', text: full_title('Sign up'))}
+  #scenario {should have_selector('title', text: full_title('Sign up'))}
+  scenario {should have_title(full_title('Sign up'))}
 end
 
 feature 'Show page' do
-  subject {page.html}
+  subject {page}
   let(:user){FactoryGirl.create(:user)}
   before { visit user_path(user)}
 
   scenario {should have_selector('h1',    text: user.name)}
-  scenario {should have_selector('title', text: full_title(user.name))}
+  #scenario {should have_selector('title', text: full_title(user.name))}
+  scenario {should have_title(full_title(user.name))}
 end
 
 feature "sign-up" do
@@ -74,7 +78,7 @@ feature "sign-up" do
     describe "after submission" do
       before {click_button submit}
 
-      subject { page.html }
+      subject { page }
 
       scenario {should have_selector('h1',    text: 'Sign up')}
       scenario {should have_content('error')}
@@ -94,11 +98,12 @@ feature "sign-up" do
     describe "after saving user" do
       before {click_button submit}
 
-      subject { page.html }
+      subject { page }
 
       let(:user) {User.find_by_email("test@test.com")}
 
-      scenario {should have_selector('title', text: full_title(user.name))}
+      #scenario {should have_selector('title', text: full_title(user.name))}
+      scenario {should have_title(full_title(user.name))}
       scenario {should have_selector('div.alert.alert-success')}
       scenario {should have_link('Sign out')}
     end
@@ -107,16 +112,17 @@ end
 
 feature "edit" do
   let(:user) { FactoryGirl.create(:user) }
-  subject{page.html}
+  subject{page}
 
   before do
-    sign_in user
+    sign_in_utl user
     visit edit_user_path(user)
   end
 
   describe "page" do
-    scenario{ should have_selector('h1',    text: 'Update your profile')}
-    scenario{ should have_selector('title', text: 'Edit user')}
+    scenario {should have_selector('h1',    text: 'Update your profile')}
+    #scenario{ should have_selector('title', text: 'Edit user')}
+    scenario {should have_title('Edit user')}
   end
 
   describe "with invalid information" do
@@ -136,7 +142,8 @@ feature "edit" do
       click_button "Save changes"
     end
 
-    scenario{ should have_selector('title', text: new_name)}
+    #scenario{ should have_selector('title', text: new_name)}
+    scenario{ should have_title(new_name)}
     scenario{ should have_link('Sign out', href: signout_path)}
     scenario{ should have_selector('div.alert.alert-success')}
     specify{ user.reload.name.should  == new_name }

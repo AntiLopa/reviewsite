@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
         render 'sessions/new'
       end
     else #sign up
-      @user = User.new(params[:session])
-      @user[:priv] = 'simple'
+      @user = User.new(session_params)
+      @user.password_confirmation = @user.password
       if @user.save
         flash[:success] = "Registration successful"
         sign_in @user
@@ -25,4 +25,10 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  private
+
+    def session_params
+      params.require(:session).permit(:email, :password)
+    end
 end

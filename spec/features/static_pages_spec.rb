@@ -1,46 +1,52 @@
 require 'spec_helper'
 
 feature 'Home page' do
-  subject {page.html}
+  subject {page}
 
   before { visit root_path}
 
   scenario {should have_selector('h1',    text: 'Search Something')}
-  scenario {should have_selector('title', text: full_title(''))}
+  scenario {should have_title(full_title(''))}
+  #scenario {should have_selector('title', text: full_title(''))}
 end
 
 feature 'About page' do
-  subject {page.html}
+  subject {page}
 
   before { visit about_path}
 
   scenario {should have_selector('h1',    text: 'About')}
-  scenario {should have_selector('title', text: full_title('About'))}
+  scenario {should have_title(full_title('About'))}
+  #scenario {should have_selector('title', text: full_title('About'))}
 end
 
 feature 'Check links' do
-  subject { page.html }
+  subject { page }
 
   before { visit root_path }
 
   scenario do
     click_link 'About'
-    should have_selector('title', text: full_title('About'))
+    should have_title(full_title('About'))
+    #should have_selector('title', text: full_title('About'))
   end
 
   scenario do
     click_link 'snfer'
-    should have_selector('title', text: full_title(''))
+    should have_title(full_title(''))
+    #should have_selector('title', text: full_title(''))
   end
 
   scenario do
     click_link 'Sign up'
-    should have_selector('title', text: "Sign up")
+    should have_title(full_title('Sign up'))
+    #should have_selector('title', text: full_title('Sign up'))
   end
 
   scenario do
     click_link 'Sign in'
-    should have_selector('title', text: "Sign in")
+    should have_title(full_title('Sign in'))
+    #should have_selector('title', text: full_title('Sign in'))
   end
 
   #scenario do

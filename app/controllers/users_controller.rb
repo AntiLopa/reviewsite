@@ -16,7 +16,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    #@user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       flash[:success] = "Registration successful"
       sign_in @user
@@ -32,7 +33,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
+    #if @user.update_attributes(params[:user])
+    if @user.update(user_params)
       sign_in @user
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -54,6 +56,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
 
     def signed_in_user
       unless sign_in?
